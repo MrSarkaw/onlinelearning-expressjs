@@ -1,0 +1,11 @@
+<%- include('../layout/header.ejs') %>
+
+    <% for(let i of room){ %>
+         <p>
+             <a href="room/<%= i.id %>">
+                 <%= i.id %>---<%= i.name %>
+             </a>
+        </p>
+    <% } %>
+
+<%- include('../layout/footer.ejs') %>
