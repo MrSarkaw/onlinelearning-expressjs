@@ -23,8 +23,7 @@ app.use(roomRouter)
 
 
 //run app
-sequelize.sync().then(sta=>{
-    console.log(sta)
+sequelize.sync().then(apps=>{
     app.listen(3000)
 }).catch((err)=>{
     console.log(err)

@@ -1,11 +1,12 @@
 <%- include('../layout/header.ejs') %>
 
-    <% for(let i of room){ %>
+    <% rooms.forEach(element=>{ %>
          <p>
-             <a href="room/<%= i.id %>">
-                 <%= i.id %>---<%= i.name %>
+             <a href="room/<%= element.id %>">
+                 
+                 <%= element.descreption %>---<%= element.title %>
              </a>
         </p>
-    <% } %>
+    <%   })  %>
 
 <%- include('../layout/footer.ejs') %>

@@ -1,16 +1,29 @@
-let rooms = [
-    {id:1, name:'is anyone want to learng js?'},
-    {id:2, name:'is anyone want to learng design?'},
-    {id:3, name:'is anyone want to learng php?'},
-]
+const Room = require('../models/room.js')
+
 exports.getAll = (req, res, next) =>{
-    res.render('room/index',{room:rooms})
+    Room.findAll().then((rooms)=>{
+        res.render('room/index',{rooms:rooms})
+    })
 };
 
 exports.show = (req, res, next) =>{
-    let room = rooms.filter((data)=>{
-        return data.id == req.params.id
+    // let room = rooms.filter((data)=>{
+    //     return data.id == req.params.id
+    // })
+
+    // res.render('room/show',{room:room})
+};
+
+exports.create = (req, res, next) =>{
+    res.render('room/create')
+}
+
+exports.store = (req, res, next)=>{
+
+    Room.create({
+        title:req.body.title,
+        descreption: req.body.description
     })
 
-    res.render('room/show',{room:room})
-};
+    res.redirect('/room/create')
+}
