@@ -6,12 +6,15 @@ exports.getAll = (req, res, next) =>{
     })
 };
 
-exports.show = (req, res, next) =>{
-    // let room = rooms.filter((data)=>{
-    //     return data.id == req.params.id
-    // })
-
-    // res.render('room/show',{room:room})
+exports.show = (req, res, next) =>{    
+    Room.findByPk(req.params.id).then((room)=>{
+        if (room)
+            res.render('room/show',{room:room})
+        else
+            res.redirect('/')
+    }).catch((err)=>{
+        res.redirect('/')
+    })
 };
 
 exports.create = (req, res, next) =>{
