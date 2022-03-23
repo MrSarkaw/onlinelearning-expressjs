@@ -21,12 +21,39 @@ exports.create = (req, res, next) =>{
     res.render('room/create')
 }
 
+exports.edit = (req, res, next) =>{
+    Room.findByPk(req.params.id).then((room)=>{
+        if (room)
+            res.render('room/create',{room:room})
+        else
+            res.redirect('/')
+    }).catch(()=>{
+        return res.redirect('/')
+    })
+}
+
 exports.store = (req, res, next)=>{
 
     Room.create({
         title:req.body.title,
-        descreption: req.body.description
+        descreption: req.body.descreption
     })
 
     res.redirect('/room/create')
+}
+
+
+exports.update = (req, res, next)=>{
+
+    Room.findByPk(req.params.id).then((room)=>{
+        if (room)
+            room.set({
+                title:req.body.title,
+                descreption: req.body.descreption
+            })
+
+        res.redirect('/')
+    }).catch(()=>{
+        return res.redirect('/')
+    })
 }
