@@ -3,8 +3,8 @@
     <% rooms.forEach(element=>{ %>
          <p>
              <a href="room/show/<%= element.id %>">
-                 
-                 <%= element.descreption %>---<%= element.title %>
+                 <p><%= element.topic.dataValues.name %></p>
+                <%= element.title %> ---  <%= element.descreption %>
              </a>
 
              <a href="room/edit/<%= element.id %>">edit</a>

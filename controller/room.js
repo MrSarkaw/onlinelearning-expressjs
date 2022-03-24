@@ -1,7 +1,13 @@
 const Room = require('../models/room.js')
+const Topic = require('../models/topic.js')
 
 exports.getAll = (req, res, next) =>{
-    Room.findAll({order:[['id','DESC']]}).then((rooms)=>{
+    Room.findAll({
+        order:[['id','DESC']],  
+        include: [{
+            model:Topic,
+        }]
+    }).then((rooms)=>{
         res.render('room/index',{rooms:rooms})
     })
 };
@@ -17,8 +23,9 @@ exports.show = (req, res, next) =>{
     })
 };
 
-exports.create = (req, res, next) =>{
-    res.render('room/create')
+exports.create = async (req, res, next) =>{
+    const topic = await Topic.findAll()
+    res.render('room/create',{topic:topic})
 }
 
 exports.edit = (req, res, next) =>{
@@ -36,7 +43,8 @@ exports.store = (req, res, next)=>{
 
     Room.create({
         title:req.body.title,
-        descreption: req.body.descreption
+        descreption: req.body.descreption,
+        topicId:req.body.topicId
     })
 
     res.redirect('/room/create')
