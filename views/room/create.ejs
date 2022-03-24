@@ -6,4 +6,10 @@
         <input type="submit" name="" id="">
     </form>
 
+    <% if(room){ %>
+    <form action="<%='/room/delete/'+room.id %>" method="post">
+        <input type="submit" name="" id="" value="delete">
+    </form>
+    <% } %>
+
 <%- include('../layout/footer.ejs') %>

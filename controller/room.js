@@ -46,14 +46,19 @@ exports.store = (req, res, next)=>{
 exports.update = (req, res, next)=>{
 
     Room.findByPk(req.params.id).then((room)=>{
-        if (room)
-            room.set({
-                title:req.body.title,
-                descreption: req.body.descreption
-            })
-
+        room.title = req.body.title;
+        room.descreption = req.body.descreption;
+        return room.save();
+    }).then(()=>{
         res.redirect('/')
-    }).catch(()=>{
+    }).catch(()=>{})
+}
+
+exports.delete = (req, res, next) =>{
+    Room.findByPk(req.params.id).then((room)=>{
+       return room.destroy()
+    }).then(()=>{
         return res.redirect('/')
     })
+    .catch()
 }
