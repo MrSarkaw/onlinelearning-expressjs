@@ -1,7 +1,7 @@
 const Room = require('../models/room.js')
 
 exports.getAll = (req, res, next) =>{
-    Room.findAll().then((rooms)=>{
+    Room.findAll({order:[['id','DESC']]}).then((rooms)=>{
         res.render('room/index',{rooms:rooms})
     })
 };

@@ -1,12 +1,12 @@
 <%- include('../layout/header.ejs') %>
-
-    <form action="<%= room?'/room/update/'+room.id:'/room/store' %>" method="post">
-        <input value="<%= room?room.title:'' %>" type="text" name="title" id="">
-        <input value="<%= room?room.descreption:'' %>" type="text" name="descreption" id="">
+    
+    <form action="<%=  typeof room != 'undefined'?'/room/update/'+room.id:'/room/store' %>" method="post">
+        <input value="<%= typeof room != 'undefined'?room.title:'' %>" type="text" name="title" id="">
+        <input value="<%= typeof room != 'undefined'?room.descreption:'' %>" type="text" name="descreption" id="">
         <input type="submit" name="" id="">
     </form>
 
-    <% if(room){ %>
+    <% if(typeof room != 'undefined'){ %>
     <form action="<%='/room/delete/'+room.id %>" method="post">
         <input type="submit" name="" id="" value="delete">
     </form>
