@@ -5,6 +5,7 @@ const path = require("path")
 const sequelize = require("./util/sequelize")
 //model
 const Room = require('./models/room')
+const Topic = require('./models/topic')
 
 const app = express()
 //utils
@@ -21,9 +22,11 @@ const roomRouter = require("./routes/room")
 //using
 app.use(roomRouter)
 
-
+//relations
+Room.belongsTo(Topic,{constrains:true, onDelete:'cascade'})
+Topic.hasMany(Room)
 //run app
-sequelize.sync().then(apps=>{
+sequelize.sync({force:true}).then(apps=>{
     app.listen(3000)
 }).catch((err)=>{
     console.log(err)
