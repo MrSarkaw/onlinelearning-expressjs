@@ -2,13 +2,40 @@ const Room = require('../models/room.js')
 const Topic = require('../models/topic.js');
 const User = require('../models/user.js');
 
-exports.getAll = (req, res, next) =>{
+const Sequelize = require('sequelize')
+const Op = Sequelize.Op;
+
+
+
+exports.getAll =async (req, res, next) =>{
+    const topic = await Topic.findAll();
+    
+    const q = req.query?.q || ''
+    
     Room.findAll({
+        where:{
+            [Op.or]:[
+                {    
+                    title:{
+                        [Op.like]: `%${q}%`
+                    },
+                },
+                {
+                    descreption:{
+                        [Op.like]: `%${q}%`
+                    }
+                },
+                {
+                  '$topic.name$':{
+                     [Op.like]: `%${q}%`
+                    }
+                }
+            ]
+        },
         order:[['id','DESC']],  
         include: [{model:Topic}, {model:User}]
     }).then((rooms)=>{
-        console.log(rooms)
-        res.render('room/index',{rooms:rooms})
+        res.render('room/index',{rooms:rooms, topic:topic})
     })
 };
 
