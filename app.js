@@ -25,10 +25,18 @@ const roomRouter = require("./routes/room")
 app.use(roomRouter)
 
 //relations
-Room.belongsTo(Topic,{constrains:true, onDelete:'cascade',foreignKey: {allowNull: false}})
+//usre
+User.hasMany(Room,{foreignKey:{allowNull:false}})
+//topic
 Topic.hasMany(Room,{foreignKey: {allowNull: false}})
+//room
+Room.belongsTo(User,{constrains:true, onDelete:"cascade", foreignKey:{allowNull:false}});
+Room.belongsTo(Topic,{constrains:true, onDelete:'cascade',foreignKey: {allowNull: false}});
+
+
+
 //run app
-sequelize.sync().then(apps=>{
+sequelize.sync({force:true}).then(apps=>{
     app.listen(3000)
 }).catch((err)=>{
     console.log(err)

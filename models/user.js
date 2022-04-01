@@ -24,4 +24,4 @@ const users = sequelize.define('users',{
 })
 
 
-exports.default = users;
+module.exports = users;
