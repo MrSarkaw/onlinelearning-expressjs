@@ -6,6 +6,8 @@ const sequelize = require("./util/sequelize")
 //model
 const Room = require('./models/room')
 const Topic = require('./models/topic')
+const User = require('./models/user')
+
 
 const app = express()
 //utils
