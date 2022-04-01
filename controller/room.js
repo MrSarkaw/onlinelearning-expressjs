@@ -5,11 +5,9 @@ const User = require('../models/user.js');
 exports.getAll = (req, res, next) =>{
     Room.findAll({
         order:[['id','DESC']],  
-        include: [{
-            model:Topic,
-            model:User
-        }]
+        include: [{model:Topic}, {model:User}]
     }).then((rooms)=>{
+        console.log(rooms)
         res.render('room/index',{rooms:rooms})
     })
 };
@@ -48,7 +46,8 @@ exports.store = (req, res, next)=>{
     Room.create({
         title:req.body.title,
         descreption: req.body.descreption,
-        topicId:req.body.topicId
+        topicId:req.body.topicId,
+        userId: req.body.userId
     })
 
     res.redirect('/room/create')

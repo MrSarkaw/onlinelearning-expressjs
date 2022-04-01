@@ -9,6 +9,11 @@
                 
             <% })  %>
         </select>
+        <select name="userId">
+            <% users.forEach((element)=>{ %>
+                <option value="<%= element.id %>"><%= element.name %></option>
+            <% }) %>
+        </select>
         <input type="submit" name="" id="">
     </form>
 
