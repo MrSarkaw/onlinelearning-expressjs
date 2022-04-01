@@ -68,12 +68,18 @@ exports.edit = (req, res, next) =>{
     })
 }
 
-exports.store = (req, res, next)=>{
+exports.store = async (req, res, next)=>{
+    console.log(req.body.topicName)
+    const [row, created] = await Topic.findOrCreate({
+        where:{
+            name:req.body.topicName
+        }
+    })
 
     Room.create({
         title:req.body.title,
         descreption: req.body.descreption,
-        topicId:req.body.topicId,
+        topicId:row.id,
         userId: req.body.userId
     })
 

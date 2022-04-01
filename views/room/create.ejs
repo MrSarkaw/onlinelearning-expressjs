@@ -3,12 +3,17 @@
     <form action="<%=  typeof room != 'undefined'?'/room/update/'+room.id:'/room/store' %>" method="post">
         <input value="<%= typeof room != 'undefined'?room.title:'' %>" type="text" name="title" id="">
         <input value="<%= typeof room != 'undefined'?room.descreption:'' %>" type="text" name="descreption" id="">
-        <select name="topicId">
-            <% topic.forEach((element)=>{  %>
-                <option value="<%= element.id %>"><%= element.name %></option>
-                
-            <% })  %>
-        </select>
+
+        <input type="text" list="topic" name="topicName">
+
+        <datalist id="topic">
+            <select>
+                <% topic.forEach((element)=>{  %>
+                    <option value="<%= element.name %>"></option>
+                    
+                <% })  %>
+            </select>
+        </datalist>
         <select name="userId">
             <% users.forEach((element)=>{ %>
                 <option value="<%= element.id %>"><%= element.name %></option>
