@@ -21,7 +21,11 @@
 
 
     <form action="/" method="get">
-        <input value="<%= q %>" type="search" name="q">
+        <% if(typeof(q) != 'undefined'){ %>
+             <input value="<%= q? q:'' %>" type="search" name="q">
+        <% }else{ %>
+            <input type="search" name="q">
+        <% } %>
         <button>search</button>
     </form>
     <hr>
