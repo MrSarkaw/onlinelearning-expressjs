@@ -35,7 +35,7 @@ exports.getAll =async (req, res, next) =>{
         order:[['id','DESC']],  
         include: [{model:Topic}, {model:User}]
     }).then((rooms)=>{
-        res.render('room/index',{rooms:rooms, topic:topic})
+        res.render('room/index',{rooms:rooms, topic:topic, q:q})
     })
 };
 
