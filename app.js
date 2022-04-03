@@ -20,9 +20,10 @@ express.static(path.join(__dirname,'public'))
 
 //routes
 const roomRouter = require("./routes/room")
-
+const authRouter = require('./routes/auth')
 //using
 app.use(roomRouter)
+app.use(authRouter)
 
 //relations
 //usre
