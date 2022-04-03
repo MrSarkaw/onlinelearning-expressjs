@@ -23,3 +23,23 @@ exports.register = async (req, res, next)=>{
 
     return res.redirect('/')
 }
+
+
+exports.login = async (req, res, next)=>{
+    const name = req.body.name;
+    const email = req.body.email;
+    const password = req.body.password;
+
+    const user = await User.findOne({where:{email:req.body.email}});
+    if(!user){
+        return res.redirect('/login')
+    }
+
+    const check = await bcrypt.compare(password, user.password);
+
+    if(check){
+        console.log("user login")
+    }else{
+        console.log('password is wrong')
+    }
+}
