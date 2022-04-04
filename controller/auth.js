@@ -38,7 +38,10 @@ exports.login = async (req, res, next)=>{
     const check = await bcrypt.compare(password, user.password);
 
     if(check){
-        console.log("user login")
+        req.session.isLogged = true;
+        req.session.user = user;
+
+        res.redirect('/')
     }else{
         console.log('password is wrong')
     }

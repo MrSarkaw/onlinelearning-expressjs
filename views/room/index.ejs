@@ -10,8 +10,12 @@
                 <%= element.title %> ---  <%= element.descreption %>
              </a>
 
-             <a href="room/edit/<%= element.id %>">edit</a>
-        </p>
+             <% if (user != null){ %>
+                <% if (element.userId == user.id){ %>
+                <a href="room/edit/<%= element.id %>">edit</a>
+                <% } %>
+            <% } %>
+            </p>
     <%   })  %>
 
 <%- include('../layout/footer.ejs') %>
