@@ -46,3 +46,10 @@ exports.login = async (req, res, next)=>{
         console.log('password is wrong')
     }
 }
+
+exports.logout = async (req, res, next)=>{
+    req.session.destroy(()=>{
+        res.redirect('/')
+    });
+   
+}

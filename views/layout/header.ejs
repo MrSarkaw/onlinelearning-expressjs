@@ -11,8 +11,13 @@
 <body class="bg-gray-800 text-white">
     <div class="flex items-center justify-between">
         <a href="/">home</a>
-        <a href="/login">login</a>
-
+        <% if(!isAuthenticated){ %>
+            <a href="/login">login</a>
+        <% }else{ %>
+            <form method="post" action="logout">
+                <button>logout</button>
+            </form>
+        <% } %>
     </div>
 
 
