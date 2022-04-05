@@ -4,7 +4,8 @@ const path = require("path")
 const session = require('express-session')
 const sequelize = require("./util/sequelize")
 
-
+// initalize sequelize with session store
+var SequelizeStore = require("connect-session-sequelize")(session.Store);
 
 //model
 const Room = require('./models/room')
@@ -19,6 +20,9 @@ app.set('views', 'views')
 
 app.use(session({
     secret:"session for online learning web App2022",
+    store: new SequelizeStore({
+        db: sequelize,
+    }),
     resave:false,
     saveUninitialized:false,
 }))
