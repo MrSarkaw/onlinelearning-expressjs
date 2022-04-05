@@ -65,8 +65,10 @@ exports.create = async (req, res, next) =>{
 
 exports.edit = (req, res, next) =>{
     Room.findByPk(req.params.id).then((room)=>{
-        if (room)
-            res.render('room/create',{room:room})
+        if (room){
+            if(room.userId == req.session.user['id'])
+                res.render('room/create',{room:room})
+        }
         else
             res.redirect('/')
     }).catch(()=>{
@@ -75,7 +77,6 @@ exports.edit = (req, res, next) =>{
 }
 
 exports.store = async (req, res, next)=>{
-    console.log(req.body.topicName)
     const [row, created] = await Topic.findOrCreate({
         where:{
             name:req.body.topicName
@@ -86,7 +87,7 @@ exports.store = async (req, res, next)=>{
         title:req.body.title,
         descreption: req.body.descreption,
         topicId:row.id,
-        userId: req.body.userId
+        userId: req.session.user['id']
     })
 
     res.redirect('/room/create')
@@ -96,9 +97,12 @@ exports.store = async (req, res, next)=>{
 exports.update = (req, res, next)=>{
 
     Room.findByPk(req.params.id).then((room)=>{
-        room.title = req.body.title;
-        room.descreption = req.body.descreption;
-        return room.save();
+        if(room.userId == req.session.user['id']){
+            room.title = req.body.title;
+            room.descreption = req.body.descreption;
+            return room.save();
+        }
+        return '';
     }).then(()=>{
         res.redirect('/')
     }).catch(()=>{})
@@ -106,7 +110,10 @@ exports.update = (req, res, next)=>{
 
 exports.delete = (req, res, next) =>{
     Room.findByPk(req.params.id).then((room)=>{
-       return room.destroy()
+        if(room.userId== req.sessoin.user['id']){
+            return room.destroy()
+        }
+        return '';
     }).then(()=>{
         return res.redirect('/')
     })
