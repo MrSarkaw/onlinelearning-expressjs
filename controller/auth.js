@@ -40,12 +40,10 @@ exports.login = async (req, res, next)=>{
     if(check){
         req.session.isLogged = true;
         req.session.user = user;
-        
-        
-        return res.redirect('/')
     }else{
         return res.redirect('/login')
     }
+    return res.redirect('/')
 }
 
 exports.logout = async (req, res, next)=>{
