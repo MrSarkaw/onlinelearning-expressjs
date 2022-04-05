@@ -40,10 +40,11 @@ exports.login = async (req, res, next)=>{
     if(check){
         req.session.isLogged = true;
         req.session.user = user;
-
-        res.redirect('/')
+        
+        
+        return res.redirect('/')
     }else{
-        console.log('password is wrong')
+        return res.redirect('/login')
     }
 }
 
