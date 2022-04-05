@@ -1,33 +1,49 @@
 <%- include('../layout/header.ejs') %>
     
-    <form action="<%=  typeof room != 'undefined'?'/room/update/'+room.id:'/room/store' %>" method="post">
-        <input value="<%= typeof room != 'undefined'?room.title:'' %>" type="text" name="title" id="">
-        <input value="<%= typeof room != 'undefined'?room.descreption:'' %>" type="text" name="descreption" id="">
-        <input type="hidden" name="_csrf" value="<%= csrf %>">
+    <form method="post"  action="<%=  typeof room != 'undefined'?'/room/update/'+room.id:'/room/store' %>">
+        <input type="hidden" value="<%= csrf %>" name="_csrf">
+        <div class="h-screen flex items-center justify-center">
+            <div class="w-5/12 rounded-lg text-white mainColor overflow-hidden">
+                <div class="p-4 uppercase boxColor font-bold">
+                   <button  onclick="window.history.back()" class="focus:outline-none"><i class="fas fa-arrow-left"></i></button> Form Room Create/update
+                </div>
+                <div class="py-10 px-5">
+                    <div>
+                        <p>Room Name</p>
+                        <input value="<%= typeof room != 'undefined'?room.title:'' %>" class="bg-transparent p-2 w-full  focus:outline-none rounded border border-gray-100/20" type="text" name="title" id="">
+    
+                    </div>
+                    <div class="mt-5">
+                        Topic
+                        <input type="text"  name="topic" list="topic" class="bg-transparent p-2 w-full  focus:outline-none rounded border border-gray-100/20">
+                        <datalist id="topic">
+                            <select>
+                                <% topic.forEach((element)=>{  %>
+                                    <option value="<%= element.name %>"></option>
+                                <% })  %>
+                            </select>
+                        </datalist>                    
+                    </div>
+                    <div class="mt-5">
+                        <p>Description</p>
+                        <input value="<%= typeof room != 'undefined'?room.descreption:'' %>" class="bg-transparent p-2 w-full  focus:outline-none rounded border border-gray-100/20" type="text" name="descreption" id="">
+    
+                    </div>
+    
+                    <div class="text-right mt-10">
+                        <button onclick="window.history.back()"  class="bg-gray-500 px-4 py-2 rounded  text-white mx-4">back</button>
+                        <button  class="bg-cyan-500 px-4 py-2 rounded text-gray-700">Submit</button>
+                    </div>
 
-        <input type="text" list="topic" name="topicName">
-
-        <datalist id="topic">
-            <select>
-                <% topic.forEach((element)=>{  %>
-                    <option value="<%= element.name %>"></option>
-                    
-                <% })  %>
-            </select>
-        </datalist>
-        <select name="userId">
-            <% users.forEach((element)=>{ %>
-                <option value="<%= element.id %>"><%= element.name %></option>
-            <% }) %>
-        </select>
-        <input type="submit" name="" id="">
+                    <% if(typeof room != 'undefined'){ %>
+                        <form action="<%='/room/delete/'+room.id %>" method="post">
+                            <input type="submit" name="" id="" value="delete">
+                        <input type="hidden" name="_csrf" value="<%= csrf %>">
+                    </form>
+                    <% } %>
+                </div>
+            </div>
+        </div>
     </form>
-
-    <% if(typeof room != 'undefined'){ %>
-    <form action="<%='/room/delete/'+room.id %>" method="post">
-        <input type="submit" name="" id="" value="delete">
-      <input type="hidden" name="_csrf" value="<%= csrf %>">
-    </form>
-    <% } %>
 
 <%- include('../layout/footer.ejs') %>

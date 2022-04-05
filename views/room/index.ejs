@@ -28,9 +28,11 @@
                     <p class="uppercase text-white">study room</p> 
                     <span class="text-sm mainColorText"><%= rooms.length %> Rooms available</span>
                 </div>
+                <% if(isAuthenticated){ %>
                 <div>
                     <a href="/room/create" class="bg-cyan-500 px-4 py-2 rounded text-gray-700"><i class="fas fa-plus"></i> Create Room</a>
                 </div>
+                <% } %>
             </div>
             <%- include('../component/room.ejs') %>
         </div>
