@@ -3,14 +3,14 @@
     <a  href="/" class="flex items-center justify-between">
         <p>All</p>
         <div class="mainColor px-3 py-1 rounded">
-            non
+            <%= rooms.length %>
         </div>
     </a>
     <% topic.forEach((element)=>{ %>
         <a href="/?q=<%= element.name %>" class="flex items-center hover:text-cyan-400 justify-between">
             <p><%= element.name %></p>
             <div class="mainColor px-3 py-1 rounded">
-                none
+                <%= element.rooms.length  %>
             </div>
         </a>
     <% }) %>

@@ -8,7 +8,13 @@ const Op = Sequelize.Op;
 
 
 exports.getAll =async (req, res, next) =>{
-    const topic = await Topic.findAll();
+    const topic = await Topic.findAll({
+        include:[{
+            model:Room
+        }]
+    });
+
+
     
     const q = req.query?.q || ''
     
