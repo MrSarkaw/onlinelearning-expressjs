@@ -27,7 +27,7 @@ app.use(session({
 
 
 app.use(bodyParser.urlencoded({extended:false}))
-express.static(path.join(__dirname,'public'))
+app.use(express.static(path.join(__dirname+'/public')))
 
 
 const Csrf = csrf()
