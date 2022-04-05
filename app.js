@@ -5,10 +5,12 @@ const session = require('express-session')
 const sequelize = require("./util/sequelize")
 var SequelizeStore = require("connect-session-sequelize")(session.Store);
 const csrf = require('csurf')
+const moment = require('moment')
 //model
 const Room = require('./models/room')
 const Topic = require('./models/topic')
 const User = require('./models/user')
+
 
 
 const app = express()
@@ -38,6 +40,7 @@ app.use((req, res, next)=>{
     res.locals.isAuthenticated = req.session.isLogged;
     res.locals.user = req.session?.user || null;
     res.locals.csrf = req.csrfToken()
+    res.locals.moment = moment
 
     next();
 });

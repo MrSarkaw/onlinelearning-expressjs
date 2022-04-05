@@ -7,7 +7,7 @@
                         <img style="background-image:url('{{ i.host.avatar.url }}')" class="w-8 h-8 coverImg rounded-full" alt="">
                         <div class="text-sm">
                             <p>
-                                <%=  element.user.dataValues.name%>
+                                <%=  element.user.dataValues.name %>
                             </p>
                         
                         </div>
@@ -15,7 +15,7 @@
                 </div>
                 <div>
                     <p class="text-xs">
-                       <%= element.createdAt%>
+                       <%=  moment(element.createdAt, "YYYYMMDD").fromNow() %>
                     </p>
                 </div>
             </div>
