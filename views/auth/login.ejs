@@ -1,12 +1,38 @@
 <%- include('../layout/header.ejs') %>
-   <form action="login" method="post">
+
+
+
+   <form method="post" action="login">
       <input type="hidden" name="_csrf" value="<%= csrf %>">
-      <input type="email" name="email" placeholder="email">
-      <input type="password" name="password" placeholder="password">
-      <button>login</button>
-
-   </form>
-
-   <a href="/register">register</a>
+      <div class="h-screen flex items-center justify-center">
+          <div class="w-4/12 rounded-lg text-white mainColor overflow-hidden">
+              <div class="p-4 text-center uppercase boxColor font-bold text-white">
+                 LOGIN
+              </div>
+              <div class="py-5 px-5">
+                  <p class="text-center mb-4">Find your study partner</p>
+                  <div>
+                      <p>Email</p>
+                      <input name="email" type="text" class="bg-transparent p-2 w-full  focus:outline-none rounded border border-gray-100/20">
+                  </div>
+                  
+                  <div class="mt-5">
+                      <p>Password</p>
+                      <input type="password" name="password" class="bg-transparent p-2 w-full  focus:outline-none rounded border border-gray-100/20">
+                  </div>
+                  
+  
+                  <div class="mt-10">
+                      <button  class="bg-cyan-500 py-2 px-4 rounded text-gray-700"> <i class="fas fa-lock"></i> Login</button>
+                  </div>
+  
+                  <div class="mt-10 text-center">
+                      <p>Haven't signed up yet?</p>
+                      <a href="/register">Register</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </form>
 
 <%- include('../layout/footer.ejs') %>
