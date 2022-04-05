@@ -3,10 +3,8 @@ const bodyParser = require("body-parser")
 const path = require("path")
 const session = require('express-session')
 const sequelize = require("./util/sequelize")
-
-// initalize sequelize with session store
 var SequelizeStore = require("connect-session-sequelize")(session.Store);
-
+const csrf = require('csurf')
 //model
 const Room = require('./models/room')
 const Topic = require('./models/topic')
@@ -32,9 +30,15 @@ app.use(bodyParser.urlencoded({extended:false}))
 express.static(path.join(__dirname,'public'))
 
 
+const Csrf = csrf()
+
+app.use(Csrf)
+
 app.use((req, res, next)=>{
     res.locals.isAuthenticated = req.session.isLogged;
     res.locals.user = req.session?.user || null;
+    res.locals.csrf = req.csrfToken()
+
     next();
 });
 

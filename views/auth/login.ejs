@@ -1,5 +1,6 @@
 <%- include('../layout/header.ejs') %>
    <form action="login" method="post">
+      <input type="hidden" name="_csrf" value="<%= csrf %>">
       <input type="email" name="email" placeholder="email">
       <input type="password" name="password" placeholder="password">
       <button>login</button>

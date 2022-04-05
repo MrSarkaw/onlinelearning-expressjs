@@ -3,6 +3,7 @@
     <form action="<%=  typeof room != 'undefined'?'/room/update/'+room.id:'/room/store' %>" method="post">
         <input value="<%= typeof room != 'undefined'?room.title:'' %>" type="text" name="title" id="">
         <input value="<%= typeof room != 'undefined'?room.descreption:'' %>" type="text" name="descreption" id="">
+        <input type="hidden" name="_csrf" value="<%= csrf %>">
 
         <input type="text" list="topic" name="topicName">
 
@@ -25,6 +26,7 @@
     <% if(typeof room != 'undefined'){ %>
     <form action="<%='/room/delete/'+room.id %>" method="post">
         <input type="submit" name="" id="" value="delete">
+      <input type="hidden" name="_csrf" value="<%= csrf %>">
     </form>
     <% } %>
 
