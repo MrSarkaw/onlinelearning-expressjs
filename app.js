@@ -49,9 +49,11 @@ app.use((req, res, next)=>{
 //routes
 const roomRouter = require("./routes/room")
 const authRouter = require('./routes/auth')
+const messageRouter = require('./routes/message')
 //using
 app.use(roomRouter)
 app.use(authRouter)
+app.use(messageRouter)
 
 //relations
 //usre
