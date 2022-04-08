@@ -58,7 +58,7 @@ app.use(messageRouter)
 //relations
 //usre
 
-let confForParent = {foreignKey:{allowNull:false}};
+let confForParent = {constrains:true, onDelete:"cascade", foreignKey:{allowNull:false}}
 User.hasMany(Room,confForParent)
 User.hasMany(Message,confForParent)
 //topic
@@ -66,12 +66,11 @@ Topic.hasMany(Room,confForParent)
 //room
 Room.hasMany(Message,confForParent)
 //room
-let confForModel = {constrains:true, onDelete:"cascade", foreignKey:{allowNull:false}}
-Room.belongsTo(User, confForModel);
-Room.belongsTo(Topic, confForModel);
+Room.belongsTo(User);
+Room.belongsTo(Topic);
 //message
-Message.belongsTo(Room, confForModel)
-Message.belongsTo(User, confForModel)
+Message.belongsTo(Room)
+Message.belongsTo(User)
 
 
 //run app
