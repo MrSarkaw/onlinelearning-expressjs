@@ -39,7 +39,7 @@
                     <div class="w-40 py-5 shadow-xl hidden absolute top-14 p-2 rounded text-center grid gap-y-3 color text-xs" id="modal">
                         
                         <a href="{% url 'profile' request.user.id %}" >Profile</a>
-                        <form action="logout" method="post">
+                        <form action="/logout" method="post">
                             <input type="hidden" name="_csrf" value="<%= csrf %>" id="">
                             <button >logout</button>
                         </form>
