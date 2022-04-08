@@ -1,6 +1,7 @@
 const Room = require('../models/room.js')
 const Topic = require('../models/topic.js');
 const User = require('../models/user.js');
+const Message = require('../models/message')
 
 const Sequelize = require('sequelize')
 const Op = Sequelize.Op;
@@ -46,9 +47,14 @@ exports.getAll =async (req, res, next) =>{
 };
 
 exports.show = (req, res, next) =>{    
-    Room.findByPk(req.params.id).then((room)=>{
-        if (room)
+    Room.findByPk(req.params.id,{
+        include:[{model:User}, {model:Topic}, {model:Message,include:[
+            {model:User}
+        ]}]
+    }).then((room)=>{
+        if (room){             
             res.render('room/show',{room:room})
+        }
         else
             res.redirect('/')
     }).catch((err)=>{

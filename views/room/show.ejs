@@ -1,7 +1,111 @@
 <%- include('../layout/header.ejs') %>
 
-  <%=  room.id  %>
+  <!-- <%=  room.id  %>
   <%=  room.title  %>
-  <%=  room.descreption  %>
+  <%=  room.descreption  %> -->
+
+  <div class="w-10/12 mx-auto">
+    <div class=" flex space-x-5">
+        <div class="w-9/12 rounded-lg text-white mainColor overflow-hidden">
+            <div class="p-4 uppercase boxColor font-bold flex justify-between items-center">
+                <div>
+                    <button  onclick="window.history.back()" class="focus:outline-none"><i class="fas fa-arrow-left"></i></button> STUDY ROOM
+                </div>
+                <div class="space-x-4">
+                    <% if(user.id == room.userId){ %>
+                        <a href="/room/edit/<%= room.id %>" class="focus:outline-none"><i class="fas fa-pen"></i></a>
+                        <a href="/room/delete/<%= room.id %>" class="focus:outline-none"><i class="fas fa-times"></i></a>
+                    <% } %>
+                </div>
+            </div>
+            <div class="py-10 px-5 ">
+                <div class="flex items-center justify-between ">
+                    <p class="text-cyan-500 text-2xl">  <%=  room.title  %></p>
+                    <p class="text-sm text-gray-100/30"><%=  moment(room.createdAt, "YYYYMMDD").fromNow()   %></p>
+                </div>
+                <p class="uppercase mt-2 text-xs text-gray-100/30">hosted by</p>
+                <div class="flex items-center space-x-3 mt-2">
+                    <img style="background-image:url('{{ room.host.avatar.url }}')" class="w-8 h-8 coverImg rounded-full" alt="">
+                    <div class="text-lg">
+                        <p class="text-cyan-500">
+                           <%= room.user.dataValues.name %>
+                        </p>
+                    </div>
+                </div>
+                <p class="text-gray-100/40 my-3">
+                    <%= room.descreption %>
+                </p>
+                <span class="bg-gray-500 px-4 rounded-full py-1">
+                    <%= room.topic.dataValues.name %>
+                </span>
+
+                <div class="color p-2 rounded mt-4 h-72 overflow-y-scroll grid gap-y-5">
+                  <% if(room.messages.length > 0){ %>
+                    <% room.messages.forEach((element)=>{ %>
+                        <div class="p-3 border-l-2 border-gray-100/30">
+                            <div class="flex justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <img style="background-image:url('{{ message.user.avatar.url }}')" class="w-8 h-8 coverImg rounded-full" alt="">
+                                    <div class="text-lg">
+                                        <p class="text-cyan-500">
+                                            <%= element.user.dataValues.name %>
+                                        </p>
+                                    </div>
+                                    <p class="text-xs"><%= moment(element.createdAt, 'YYYYMMDD').fromNow() %></p>
+                                </div>
+                                <div>
+                                    <% if(element.user.dataValues.id == user.id){ %>
+                                        <a href="{% url 'deleteMessage' message.id %}" class="focus:outline-none"><i class="fas fa-times"></i></a>
+                                    <% } %>
+                                </div>
+                            </div>
+                            <p class="text-gray-100/40 text-sm my-3">
+                                <%= element.message %>
+                            </p>
+                        </div>
+                    <% }) %>
+                  <% } %>
+                </div>
+                <% if(user){ %>
+                <form method="post" action="/store/message">
+                    <input type="hidden" name="_csrf" value="<%= csrf %>" id="">
+                    <input type="hidden" name="roomid" value="<%= room.id %>" id="">
+                    <input type="text" class="py-2 px-2 focus:outline-none color w-full rounded mt-3" placeholder="write message" name="message" id="">
+                </form>
+                 <% } %>
+
+            </div>
+        </div>
+        <div class="w-3/12">
+            <div class="rounded overflow-hidden text-white">
+                <div class="p-4 uppercase boxColor font-bold">
+                    PARTICIPANTS <span class="text-cyan-400 text-xs">({{ room.particpanties.all.count }} Joined)</span>
+                </div>
+                <div class="mainColor p-2 h-screen overflow-y-scroll">
+                    <div class="p-2">
+                        {% for user in particpanties %}
+                            <div class="flex items-center my-2 justify-between">
+                                <div>
+                                    <div class="flex items-center space-x-3">
+                                        <img style="background-image:url('{{ user.avatar.url }}')" class="w-10 h-10 coverImg rounded-full" alt="">
+                                        <div class="text-sm">
+                                            <p class="text-sm">
+                                                {{ user.fullname }}
+                                            </p>
+                                            <a href="{% url 'profile' user.id %}" class=" text-cyan-500">
+                                                @{{ user.username }}
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                       
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <%- include('../layout/footer.ejs') %>
