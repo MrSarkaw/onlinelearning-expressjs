@@ -55,7 +55,7 @@
                                 </div>
                                 <div>
                                     <% if(element.user.dataValues.id == user.id){ %>
-                                        <a href="{% url 'deleteMessage' message.id %}" class="focus:outline-none"><i class="fas fa-times"></i></a>
+                                        <a href="/message/delete/<%= element.id %>" class="focus:outline-none"><i class="fas fa-times"></i></a>
                                     <% } %>
                                 </div>
                             </div>
