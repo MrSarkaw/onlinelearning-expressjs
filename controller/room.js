@@ -66,16 +66,19 @@ exports.show = (req, res, next) =>{
 
 exports.create = async (req, res, next) =>{
     const topic = await Topic.findAll();
-    const users = await User.findAll();
 
-    res.render('room/create',{topic:topic, users:users})
+    res.render('room/create',{topic:topic})
 }
 
-exports.edit = (req, res, next) =>{
-    Room.findByPk(req.params.id).then((room)=>{
+exports.edit = async (req, res, next) =>{
+    const topic = await Topic.findAll();
+    Room.findByPk(req.params.id,{
+        include:[{model:Topic}]
+    }).then((room)=>{
         if (room){
-            if(room.userId == req.session.user['id'])
-                res.render('room/create',{room:room})
+            if(room.userId == req.session.user['id']){
+                res.render('room/create',{room:room, topic:topic})
+            }
         }
         else
             res.redirect('/')
@@ -102,12 +105,17 @@ exports.store = async (req, res, next)=>{
 }
 
 
-exports.update = (req, res, next)=>{
-
+exports.update = async (req, res, next)=>{
+    const [row, created] = await Topic.findOrCreate({
+        where:{
+            name:req.body.topicName
+        }
+    })
     Room.findByPk(req.params.id).then((room)=>{
         if(room.userId == req.session.user['id']){
             room.title = req.body.title;
             room.descreption = req.body.descreption;
+            room.topicId = row.id;
             return room.save();
         }
         return '';

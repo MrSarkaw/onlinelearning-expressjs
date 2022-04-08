@@ -15,11 +15,11 @@
                     </div>
                     <div class="mt-5">
                         Topic
-                        <input type="text"  name="topicName" list="topic" class="bg-transparent p-2 w-full  focus:outline-none rounded border border-gray-100/20">
+                        <input type="text" value="<%= typeof room != 'undefined'?room.topic.dataValues.name:'' %>"  name="topicName" list="topic" class="bg-transparent p-2 w-full  focus:outline-none rounded border border-gray-100/20">
                         <datalist id="topic">
                             <select>
                                 <% topic.forEach((element)=>{  %>
-                                    <option value="<%= element.name %>"></option>
+                                    <option  value="<%= element.name %>"></option>
                                 <% })  %>
                             </select>
                         </datalist>                    
@@ -34,13 +34,6 @@
                         <button onclick="window.history.back()"  class="bg-gray-500 px-4 py-2 rounded  text-white mx-4">back</button>
                         <button  class="bg-cyan-500 px-4 py-2 rounded text-gray-700">Submit</button>
                     </div>
-
-                    <% if(typeof room != 'undefined'){ %>
-                        <form action="<%='/room/delete/'+room.id %>" method="post">
-                            <input type="submit" name="" id="" value="delete">
-                        <input type="hidden" name="_csrf" value="<%= csrf %>">
-                    </form>
-                    <% } %>
                 </div>
             </div>
         </div>
