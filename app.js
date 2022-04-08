@@ -10,6 +10,7 @@ const moment = require('moment')
 const Room = require('./models/room')
 const Topic = require('./models/topic')
 const User = require('./models/user')
+const Message = require('./models/message')
 
 
 
@@ -54,17 +55,25 @@ app.use(authRouter)
 
 //relations
 //usre
-User.hasMany(Room,{foreignKey:{allowNull:false}})
-//topic
-Topic.hasMany(Room,{foreignKey: {allowNull: false}})
-//room
-Room.belongsTo(User,{constrains:true, onDelete:"cascade", foreignKey:{allowNull:false}});
-Room.belongsTo(Topic,{constrains:true, onDelete:'cascade',foreignKey: {allowNull: false}});
 
+let confForParent = {foreignKey:{allowNull:false}};
+User.hasMany(Room,confForParent)
+User.hasMany(Message,confForParent)
+//topic
+Topic.hasMany(Room,confForParent)
+//room
+Room.hasMany(Message,confForParent)
+//room
+let confForModel = {constrains:true, onDelete:"cascade", foreignKey:{allowNull:false}}
+Room.belongsTo(User, confForModel);
+Room.belongsTo(Topic, confForModel);
+//message
+Message.belongsTo(Room, confForModel)
+Message.belongsTo(User, confForModel)
 
 
 //run app
-sequelize.sync().then(apps=>{
+sequelize.sync({force:true}).then(apps=>{
     app.listen(3000)
 }).catch((err)=>{
     console.log(err)
