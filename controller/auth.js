@@ -15,22 +15,24 @@ exports.register = async (req, res, next)=>{
     const email = req.body.email;
     const password =await bcrypt.hash(req.body.password, 12);
 
-    User.create({
+   let user = await User.create({
         name:name,
         email:email,
         password:password
     });
 
-    return res.redirect('/')
+    req.session.isLogged = true;
+    req.session.user = user;
+    
+    res.redirect('/')
 }
 
 
 exports.login = async (req, res, next)=>{
-    const name = req.body.name;
     const email = req.body.email;
     const password = req.body.password;
 
-    const user = await User.findOne({where:{email:req.body.email}});
+    const user = await User.findOne({where:{email:email}});
     if(!user){
         return res.redirect('/login')
     }

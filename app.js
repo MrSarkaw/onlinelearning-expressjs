@@ -73,7 +73,7 @@ Message.belongsTo(User, confForModel)
 
 
 //run app
-sequelize.sync({force:true}).then(apps=>{
+sequelize.sync().then(apps=>{
     app.listen(3000)
 }).catch((err)=>{
     console.log(err)
