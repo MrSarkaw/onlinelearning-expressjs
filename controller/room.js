@@ -126,7 +126,7 @@ exports.update = async (req, res, next)=>{
 
 exports.delete = (req, res, next) =>{
     Room.findByPk(req.params.id).then((room)=>{
-        if(room.userId== req.sessoin.user['id']){
+        if(room.userId== req.session.user['id']){
             return room.destroy()
         }
         return '';
