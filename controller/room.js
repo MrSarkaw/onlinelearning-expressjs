@@ -15,8 +15,6 @@ exports.getAll =async (req, res, next) =>{
         }]
     });
 
-
-    
     const q = req.query?.q || ''
     
     Room.findAll({
@@ -48,10 +46,14 @@ exports.getAll =async (req, res, next) =>{
 
 exports.show = (req, res, next) =>{    
     Room.findByPk(req.params.id,{
-        include:[{model:User}, {model:Topic}, {model:Message,include:[
-            {model:User}
-        ]}]
-    }).then((room)=>{
+        include:[{model:User}, {model:Topic}, {model:Message,
+            include:[
+                {model:User},
+             ],
+        }],
+        order:[[Message, 'id', 'DESC']]
+    },
+    ).then((room)=>{
         if (room){             
             res.render('room/show',{room:room})
         }
