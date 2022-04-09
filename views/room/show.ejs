@@ -86,27 +86,29 @@
         <div class="w-3/12">
             <div class="rounded overflow-hidden text-white">
                 <div class="p-4 uppercase boxColor font-bold">
-                    PARTICIPANTS <span class="text-cyan-400 text-xs">({{ room.particpanties.all.count }} Joined)</span>
+                    PARTICIPANTS <span class="text-cyan-400 text-xs">(<%= room.particpanties.length %> Joined)</span>
                 </div>
                 <div class="mainColor p-2 h-screen overflow-y-scroll">
                     <div class="p-2">
-                        {% for user in particpanties %}
-                            <div class="flex items-center my-2 justify-between">
-                                <div>
-                                    <div class="flex items-center space-x-3">
-                                        <img style="background-image:url('{{ user.avatar.url }}')" class="w-10 h-10 coverImg rounded-full" alt="">
-                                        <div class="text-sm">
-                                            <p class="text-sm">
-                                                {{ user.fullname }}
-                                            </p>
-                                            <a href="{% url 'profile' user.id %}" class=" text-cyan-500">
-                                                @{{ user.username }}
-                                            </a>
+                        <% if(room.particpanties.length > 0){ %>
+                            <% room.particpanties.forEach((userParticpanties)=>{ %>
+                                <div class="flex items-center my-2 justify-between">
+                                    <div>
+                                        <div class="flex items-center space-x-3">
+                                            <img style="background-image:url('{{ user.avatar.url }}')" class="w-10 h-10 coverImg rounded-full" alt="">
+                                            <div class="text-sm">
+                                                <p class="text-sm">
+                                                    <%= userParticpanties.user.dataValues.name %>
+                                                </p>
+                                                <a href="{% url 'profile' user.id %}" class=" text-cyan-500">
+                                                    <%= userParticpanties.user.dataValues.email %>
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        {% endfor %}
+                            <% }) %>
+                        <% } %>
                        
                     </div> 
                 </div>

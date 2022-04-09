@@ -78,6 +78,9 @@ Room.belongsTo(Topic);
 Message.belongsTo(Room)
 Message.belongsTo(User)
 
+//particpanties
+Particpant.belongsTo(User)
+Particpant.belongsTo(Room)
 
 //run app
 sequelize.sync().then(apps=>{
