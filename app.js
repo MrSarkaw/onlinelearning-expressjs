@@ -11,7 +11,7 @@ const Room = require('./models/room')
 const Topic = require('./models/topic')
 const User = require('./models/user')
 const Message = require('./models/message')
-
+const Particpant = require('./models/particpanties.js')
 
 
 const app = express()
@@ -61,15 +61,19 @@ app.use(userRouter)
 //usre
 
 let confForParent = {constrains:true, onDelete:"cascade", foreignKey:{allowNull:false}}
-User.hasMany(Room,confForParent)
-User.hasMany(Message,confForParent)
+User.hasMany(Room, confForParent)
+User.hasMany(Message, confForParent)
+User.hasMany(Particpant, confForParent)
+
 //topic
-Topic.hasMany(Room,confForParent)
+Topic.hasMany(Room, confForParent)
+
 //room
-Room.hasMany(Message,confForParent)
-//room
+Room.hasMany(Message, confForParent)
+Room.hasMany(Particpant, confForParent)
 Room.belongsTo(User);
 Room.belongsTo(Topic);
+
 //message
 Message.belongsTo(Room)
 Message.belongsTo(User)
