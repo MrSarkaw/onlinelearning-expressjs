@@ -16,7 +16,13 @@ exports.show = async (req, res, next)=>{
     });
     if(user){
         const rooms = user.rooms;
-        return res.render('profile/show', {profile:user, rooms:rooms});
+        const topic = await Topic.findAll({
+            include:[{
+                model:Room
+            }]
+        });
+    
+        return res.render('profile/show', {profile:user, rooms:rooms, topic:topic});
     }else{
         return res.redirect('/')
     }
