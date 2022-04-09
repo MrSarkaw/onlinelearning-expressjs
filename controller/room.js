@@ -17,6 +17,13 @@ exports.getAll =async (req, res, next) =>{
 
     const q = req.query?.q || ''
     
+    const messages =await Message.findAll({
+        order:[['id','desc']],
+        include:[{model:User}, {model:Room}],
+        limit:10
+    });
+
+
     Room.findAll({
         where:{
             [Op.or]:[
@@ -40,7 +47,7 @@ exports.getAll =async (req, res, next) =>{
         order:[['id','DESC']],  
         include: [{model:Topic}, {model:User}]
     }).then((rooms)=>{
-        res.render('room/index',{rooms:rooms, topic:topic, q:q})
+        res.render('room/index',{rooms:rooms, topic:topic, q:q, messages:messages})
     })
 };
 

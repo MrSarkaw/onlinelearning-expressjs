@@ -1,0 +1,41 @@
+<div class="rounded overflow-hidden text-white">
+    <div class="p-2 uppercase boxColor font-bold">
+        recent activites
+    </div>
+    <div class="mainColor p-2 grid gap-y-5">
+        <% messages.forEach((element)=>{ %>
+            <div class="p-4 border rounded border-gray-100/30">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <div class="flex items-center space-x-3">
+                            <img style="background-image:url('{{ message.user.avatar.url }}')" class="w-8 h-8 coverImg rounded-full" alt="">
+                            <div class="text-sm">
+                                <p>
+                                    <a href="{% url 'profile' message.user.id %}">
+                                        <%= element.user.dataValues.name %>
+                                    </a>
+                                </p>
+                                <p class="text-xs">
+                                    <%= moment(element.createdAt,'YYYYMMDD').fromNow() %>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <% if(isAuthenticated){ %>
+                            <% if(user.id == element.userId){ %>
+                                <a href="{% url 'deleteMessage' message.id %}"> <i class="fas fa-times"></i> </a>
+                           <% } %>
+                         <% } %>
+                    </div>
+                </div>
+                <p class="text-sm mt-4 text-gray-100/50">replaied to post <a class="text-cyan-400" href="/room/show/<%= element.roomId %>">"<%= element.room.dataValues.title %>"</a></p>
+                <div class="bodyColor mt-1 text-gray-100/70 rounded p-2 text-xs">
+                    <%= element.message %>
+                </div>
+            </div>
+        <% }) %>
+
+
+    </div>
+</div>

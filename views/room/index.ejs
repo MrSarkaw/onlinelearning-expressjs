@@ -1,23 +1,5 @@
 <%- include('../layout/header.ejs') %>
 
-    <!-- <br><br>
-    <a href="/room/create">create</a>
-    <% rooms.forEach(element=>{ %>
-         <p>
-             <a href="room/show/<%= element.id %>">
-                 <p>created by: <%= element.user.dataValues.name  %> </p>
-                 <p>room topic: <%= element.topic.dataValues.name %></p>
-                <%= element.title %> ---  <%= element.descreption %>
-             </a>
-
-             <% if (user != null){ %>
-                <% if (element.userId == user.id){ %>
-                <a href="room/edit/<%= element.id %>">edit</a>
-                <% } %>
-            <% } %>
-            </p>
-    <%   })  %> -->
-
     <div class="w-10/12 mx-auto mt-4 flex justify-between flex-wrap">
         <div class="w-2/12 ">
             <%- include('../component/topic.ejs') %>
@@ -37,7 +19,7 @@
             <%- include('../component/room.ejs') %>
         </div>
         <div class="w-3/12 pl-5">
-            <!-- {% include 'base/components/message.html'  %} -->
+            <%- include('../component/message.ejs') %>
          </div>
     </div>
     
