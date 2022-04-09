@@ -2,6 +2,7 @@ const User = require('../models/user')
 const Room = require('../models/room')
 const Topic = require('../models/topic')
 const Message = require('../models/message')
+const Particpant = require('../models/particpanties')
 
 exports.show = async (req, res, next)=>{
     const user =await User.findByPk(req.params.id,{
@@ -11,6 +12,7 @@ exports.show = async (req, res, next)=>{
                 include:[
                     {model:User},
                     {model:Topic},
+                    {model:Particpant}
                 ]
             },
             {
@@ -21,7 +23,8 @@ exports.show = async (req, res, next)=>{
                 ],
                 separate : true,
                 limit:10
-            }
+            },
+            
         ],
         order:[[Room,'id', 'desc']]
     });
