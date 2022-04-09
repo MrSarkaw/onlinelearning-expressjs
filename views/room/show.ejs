@@ -12,12 +12,14 @@
                     <button  onclick="window.history.back()" class="focus:outline-none"><i class="fas fa-arrow-left"></i></button> STUDY ROOM
                 </div>
                 <div class="space-x-4 flex">
-                    <% if(user.id == room.userId){ %>
-                        <a href="/room/edit/<%= room.id %>" class="focus:outline-none"><i class="fas fa-pen"></i></a>
-                        <form action="<%='/room/delete/'+room.id %>" method="post">
-                            <button><i class="fas fa-trash"></i></button>
-                            <input type="hidden" name="_csrf" value="<%= csrf %>">
-                        </form>
+                    <% if(isAuthenticated){ %>
+                        <% if(user.id == room.userId){ %>
+                            <a href="/room/edit/<%= room.id %>" class="focus:outline-none"><i class="fas fa-pen"></i></a>
+                            <form action="<%='/room/delete/'+room.id %>" method="post">
+                                <button><i class="fas fa-trash"></i></button>
+                                <input type="hidden" name="_csrf" value="<%= csrf %>">
+                            </form>
+                        <% } %>
                     <% } %>
                 </div>
             </div>
@@ -57,8 +59,10 @@
                                     <p class="text-xs"><%= moment(element.createdAt, 'YYYYMMDD').fromNow() %></p>
                                 </div>
                                 <div>
-                                    <% if(element.user.dataValues.id == user.id){ %>
-                                        <a href="/message/delete/<%= element.id %>" class="focus:outline-none"><i class="fas fa-times"></i></a>
+                                    <% if(isAuthenticated){ %>
+                                        <% if(element.user.dataValues.id == user.id){ %>
+                                            <a href="/message/delete/<%= element.id %>" class="focus:outline-none"><i class="fas fa-times"></i></a>
+                                        <% } %>
                                     <% } %>
                                 </div>
                             </div>
