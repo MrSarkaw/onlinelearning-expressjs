@@ -10,13 +10,23 @@ exports.loginPage = (req, res, next)=>{
 };
 
 exports.registerPage = (req, res, next)=>{
-    res.render('auth/register');
+    res.render('auth/register',{
+        errorMessage:''
+    });
 };
 
 exports.register = async (req, res, next)=>{
     const name = req.body.name;
     const email = req.body.email;
     const password =await bcrypt.hash(req.body.password, 12);
+
+    const errors = validationResult(req)
+
+    if(!errors.isEmpty()){
+        res.status(422).render('auth/register',{
+            errorMessage:errors.array()
+        });
+    }
 
    let user = await User.create({
         name:name,
