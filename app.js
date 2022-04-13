@@ -6,6 +6,7 @@ const sequelize = require("./util/sequelize")
 var SequelizeStore = require("connect-session-sequelize")(session.Store);
 const csrf = require('csurf')
 const moment = require('moment')
+const flash = require('connect-flash')
 //model
 const Room = require('./models/room')
 const Topic = require('./models/topic')
@@ -28,6 +29,7 @@ app.use(session({
     saveUninitialized:false,
 }))
 
+app.use(flash)
 
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(express.static(path.join(__dirname+'/public')))
@@ -45,6 +47,7 @@ app.use((req, res, next)=>{
 
     next();
 });
+
 
 //routes
 const roomRouter = require("./routes/room")
