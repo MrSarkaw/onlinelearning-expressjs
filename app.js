@@ -29,7 +29,7 @@ app.use(session({
     saveUninitialized:false,
 }))
 
-app.use(flash)
+// app.use(flash)
 
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(express.static(path.join(__dirname+'/public')))

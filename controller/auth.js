@@ -1,9 +1,12 @@
 const bcrypt = require('bcrypt')
 const User = require('../models/user')
 
+const {validationResult} = require('express-validator')
 
 exports.loginPage = (req, res, next)=>{
-    res.render('auth/login')
+    res.render('auth/login',{
+        errorMessage:''
+    })
 };
 
 exports.registerPage = (req, res, next)=>{
@@ -32,6 +35,14 @@ exports.login = async (req, res, next)=>{
     const email = req.body.email;
     const password = req.body.password;
 
+    const errors = validationResult(req);
+    console.log(errors)
+    if(!errors.isEmpty()){
+        return res.status(422).render('auth/login',{
+            errorMessage:errors.array()
+        })
+    }
+    
     const user = await User.findOne({where:{email:email}});
     if(!user){
         return res.redirect('/login')

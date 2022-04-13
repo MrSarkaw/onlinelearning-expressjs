@@ -1,10 +1,17 @@
 <%- include('../layout/header.ejs') %>
 
+    <div class="w-4/12 mx-auto">
+        <% if(errorMessage){ %>
+            <% errorMessage.forEach((element)=>{ %>
+                <p class="text-center mt-3  text-white bg-red-700 rounded p-1"><%= element['param'] %>: <%= element['msg'] %></p>
+            <% }) %>
+        <% } %>
+    </div>
 
 
    <form method="post" action="login">
       <input type="hidden" name="_csrf" value="<%= csrf %>">
-      <div class="h-screen flex items-center justify-center">
+      <div class=" flex mt-10 justify-center">
           <div class="w-4/12 rounded-lg text-white mainColor overflow-hidden">
               <div class="p-4 text-center uppercase boxColor font-bold text-white">
                  LOGIN
