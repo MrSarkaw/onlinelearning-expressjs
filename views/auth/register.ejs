@@ -22,14 +22,14 @@
             
             <div class="mt-5">
                 <p>name</p>
-                <input type="text" name="name" placeholder="name" class='bg-transparent p-2 w-full  focus:outline-none rounded border border-gray-100/20'>
+                <input type="text" value="<%= oldValue?oldValue['name']:'' %>" name="name" placeholder="name" class='bg-transparent p-2 w-full  focus:outline-none rounded border border-gray-100/20'>
             </div>
             
        
            
             <div class="mt-5">
                 <p>email</p>
-                <input type="email" name="email" placeholder="email" class='bg-transparent p-2 w-full  focus:outline-none rounded border border-gray-100/20'>
+                <input type="email" value="<%= oldValue?oldValue['email']:'' %>" name="email" placeholder="email" class='bg-transparent p-2 w-full  focus:outline-none rounded border border-gray-100/20'>
             </div>
             
        
@@ -37,6 +37,12 @@
             <div class="mt-5">
                 <p>password</p>
                 <input type="password" name="password" placeholder="*****" class='bg-transparent p-2 w-full  focus:outline-none rounded border border-gray-100/20'>
+            </div>
+       
+           
+            <div class="mt-5">
+                <p>password confirmation</p>
+                <input type="password" name="password_confirmation" placeholder="*****" class='bg-transparent p-2 w-full  focus:outline-none rounded border border-gray-100/20'>
             </div>
             
             <div class="mt-10">

@@ -11,7 +11,8 @@ exports.loginPage = (req, res, next)=>{
 
 exports.registerPage = (req, res, next)=>{
     res.render('auth/register',{
-        errorMessage:''
+        errorMessage:'',
+        oldValue:''
     });
 };
 
@@ -23,8 +24,10 @@ exports.register = async (req, res, next)=>{
     const errors = validationResult(req)
 
     if(!errors.isEmpty()){
-        res.status(422).render('auth/register',{
-            errorMessage:errors.array()
+
+        return res.status(422).render('auth/register',{
+            errorMessage:errors.array(),
+            oldValue: req.body
         });
     }
 
