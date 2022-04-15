@@ -1,0 +1,55 @@
+<%- include('../layout/header.ejs') %>
+
+<div class="w-4/12 mx-auto mb-2">
+    <% if(errorMessage){ %>
+        <% errorMessage.forEach((element)=>{ %>
+            <p class="text-center mt-3  text-white bg-red-700 rounded p-1"><%= element['param'] %>: <%= element['msg'] %></p>
+        <% }) %>
+    <% } %>
+</div>
+
+
+<form method="post" action="/edit">
+    <input type="hidden" value="<%= csrf %>" name="_csrf">
+    <div class="h-min-screen flex items-center justify-center">
+        <div class="w-4/12 rounded-lg text-white mainColor overflow-hidden">
+            <div class="p-4 text-center uppercase boxColor font-bold text-white">
+               Edit Profile <%= user.name %>
+            </div>
+            <div class="py-5 px-5">
+                <div class="mt-5">
+                    <p>name</p>
+                    <input type="text" value="<%= userProfile['name'] %>" name="name" placeholder="name" class='bg-transparent p-2 w-full  focus:outline-none rounded border border-gray-100/20'>
+                </div>
+                
+           
+               
+                <div class="mt-5">
+                    <p>email</p>
+                    <input type="email" value="<%=  userProfile['email'] %>" name="email" placeholder="email" class='bg-transparent p-2 w-full  focus:outline-none rounded border border-gray-100/20'>
+                </div>
+                
+           
+               
+                <div class="mt-5">
+                    <p>password</p>
+                    <input type="password" name="password" placeholder="*****" class='bg-transparent p-2 w-full  focus:outline-none rounded border border-gray-100/20'>
+                </div>
+           
+               
+                <div class="mt-5">
+                    <p>password confirmation</p>
+                    <input type="password" name="password_confirmation" placeholder="*****" class='bg-transparent p-2 w-full  focus:outline-none rounded border border-gray-100/20'>
+                </div>
+                
+                <div class="mt-10">
+                    <button  class="bg-cyan-500 py-2 px-4 rounded text-gray-700"> Update</button>
+                </div>
+
+              
+            </div>
+        </div>
+    </div>
+</form>
+
+<%- include('../layout/footer.ejs') %>

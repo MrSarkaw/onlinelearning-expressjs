@@ -11,7 +11,7 @@
             <p class=" my-2"><%= profile.email %></p>
             <% if(isAuthenticated){ %>
                 <% if(profile.id == user.id){ %>
-                    <a href="{% url 'profileEdit' %}" class="px-4 border-2 border-cyan-500 text-cyan-500 rounded-full py-1 ">Edit Profile</a>
+                    <a href="/edit" class="px-4 border-2 border-cyan-500 text-cyan-500 rounded-full py-1 ">Edit Profile</a>
                 <%}%>
             <%}%>
         </div>

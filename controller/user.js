@@ -4,6 +4,10 @@ const Topic = require('../models/topic')
 const Message = require('../models/message')
 const Particpant = require('../models/particpanties')
 
+const bcrypt = require('bcrypt')
+
+const {validationResult} = require('express-validator')
+
 exports.show = async (req, res, next)=>{
     const user =await User.findByPk(req.params.id,{
         include:[
@@ -45,4 +49,38 @@ exports.show = async (req, res, next)=>{
     }else{
         return res.redirect('/')
     }
+};
+
+exports.edit = async (req, res, next)=>{
+    const user = await User.findOne({where:{id:req.session.user['id']}});
+
+    if(user){
+        return res.render('profile/edit', {
+            userProfile:user,
+            oldValue:'',
+            errorMessage:''
+        })
+    }
+};
+
+exports.update = async (req, res, next)=>{
+    const user = await User.findOne({where:{id:req.session.user['id']}});
+    const errors = validationResult(req)
+
+    if(!errors.isEmpty()){
+        return res.render('profile/edit',{
+            userProfile:user,
+            errorMessage:errors.array()
+        });
+    }
+
+    user.name = req.body.name;
+    user.email = req.body.email;
+    if(req.body.password)
+        user.password = await bcrypt.hash(req.body.password, 12);
+        
+    user.save();
+
+    return res.redirect('/edit')
+
 };
