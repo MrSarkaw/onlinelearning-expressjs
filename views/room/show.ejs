@@ -30,7 +30,7 @@
                 </div>
                 <p class="uppercase mt-2 text-xs text-gray-100/30">hosted by</p>
                 <div class="flex items-center space-x-3 mt-2">
-                    <img style="background-image:url('{{ room.host.avatar.url }}')" class="w-8 h-8 coverImg rounded-full" alt="">
+                    <img style="background-image:url('/images/<%= room.user.dataValues.image %>')" class="w-8 h-8 coverImg rounded-full" alt="">
                     <div class="text-lg">
                         <p class="text-cyan-500">
                            <%= room.user.dataValues.name %>
@@ -50,7 +50,7 @@
                         <div class="p-3 border-l-2 border-gray-100/30">
                             <div class="flex justify-between">
                                 <div class="flex items-center space-x-3">
-                                    <img style="background-image:url('{{ message.user.avatar.url }}')" class="w-8 h-8 coverImg rounded-full" alt="">
+                                    <img style="background-image:url('/images/<%= element.user.dataValues.image %>')" class="w-8 h-8 coverImg rounded-full" alt="">
                                     <div class="text-lg">
                                         <p class="text-cyan-500">
                                             <%= element.user.dataValues.name %>
@@ -95,7 +95,7 @@
                                 <div class="flex items-center my-2 justify-between">
                                     <div>
                                         <div class="flex items-center space-x-3">
-                                            <img style="background-image:url('{{ user.avatar.url }}')" class="w-10 h-10 coverImg rounded-full" alt="">
+                                            <img style="background-image:url('/images/<%= userParticpanties.user.dataValues.image %>')" class="w-10 h-10 coverImg rounded-full" alt="">
                                             <div class="text-sm">
                                                 <p class="text-sm">
                                                     <%= userParticpanties.user.dataValues.name %>

@@ -24,6 +24,7 @@ const users = sequelize.define('users',{
     image:{
         type:Sequelize.STRING,
         allowNull:true,
+        defaultValue:'0.png'
     },
     bio:{
         type:Sequelize.STRING,

@@ -93,8 +93,10 @@ exports.update = async (req, res, next)=>{
     user.bio = req.body.bio;
     if(req.body.password)
         user.password = await bcrypt.hash(req.body.password, 12);
-        
+
     await user.save();
+
+    req.session.user['image'] = filename;
 
     return res.redirect('/edit')
 
