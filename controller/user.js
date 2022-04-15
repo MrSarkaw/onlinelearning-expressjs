@@ -76,10 +76,11 @@ exports.update = async (req, res, next)=>{
 
     user.name = req.body.name;
     user.email = req.body.email;
+    user.bio = req.body.bio;
     if(req.body.password)
         user.password = await bcrypt.hash(req.body.password, 12);
         
-    user.save();
+    await user.save();
 
     return res.redirect('/edit')
 
