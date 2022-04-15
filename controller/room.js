@@ -6,7 +6,7 @@ const Particpant = require('../models/particpanties')
 const Sequelize = require('sequelize')
 const Op = Sequelize.Op;
 
-
+const {validationResult} = require('express-validator')
 
 exports.getAll =async (req, res, next) =>{
     const topic = await Topic.findAll({
@@ -89,27 +89,25 @@ exports.show = (req, res, next) =>{
 exports.create = async (req, res, next) =>{
     const topic = await Topic.findAll();
 
-    res.render('room/create',{topic:topic})
-}
-
-exports.edit = async (req, res, next) =>{
-    const topic = await Topic.findAll();
-    Room.findByPk(req.params.id,{
-        include:[{model:Topic}]
-    }).then((room)=>{
-        if (room){
-            if(room.userId == req.session.user['id']){
-                res.render('room/create',{room:room, topic:topic})
-            }
-        }
-        else
-            res.redirect('/')
-    }).catch(()=>{
-        return res.redirect('/')
+   return res.render('room/create',{
+        topic:topic,
+        errorMessage:''
     })
 }
 
 exports.store = async (req, res, next)=>{
+
+
+    const errors = validationResult(req)
+
+    if(!errors.isEmpty()){
+        const topic = await Topic.findAll();
+       return res.render('room/create',{
+            topic:topic,
+            errorMessage:errors.array()
+        })
+    }
+
     const [row, created] = await Topic.findOrCreate({
         where:{
             name:req.body.topicName
@@ -123,11 +121,38 @@ exports.store = async (req, res, next)=>{
         userId: req.session.user['id']
     })
 
-    res.redirect('/room/create')
+    res.redirect('/')
 }
 
+let UpdateOrEdit = async (req, res, errorMessage)=>{
+        const topic = await Topic.findAll();
+        Room.findByPk(req.params.id,{
+            include:[{model:Topic}]
+        }).then((room)=>{
+            if (room){
+                if(room.userId == req.session.user['id']){
+                     res.render('room/create',{room:room, topic:topic, errorMessage:errorMessage})
+                }
+            }
+            else
+               res.redirect('/')
+    }).catch(()=>{
+        return res.redirect('/')
+    })
+}
+
+exports.edit = async (req, res, next) =>{
+   UpdateOrEdit(req, res, '');
+}
 
 exports.update = async (req, res, next)=>{
+
+    const errors = validationResult(req)
+
+    if(!errors.isEmpty()){
+      return UpdateOrEdit(req, res, errors.array())
+    }
+
     const [row, created] = await Topic.findOrCreate({
         where:{
             name:req.body.topicName
