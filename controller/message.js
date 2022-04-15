@@ -4,8 +4,8 @@ const Particpant = require('../models/particpanties')
 
 exports.store=async (req, res, next)=>{
     let check = await Room.findByPk(req.body.roomid)
-
-    if(check){
+    
+    if(check && req.body.message != null && req.body.message != ''){
         await Message.create({
             userId : req.session.user['id'],
             roomId:check.id,
