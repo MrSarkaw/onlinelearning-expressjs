@@ -100,7 +100,7 @@
                                                 <p class="text-sm">
                                                     <%= userParticpanties.user.dataValues.name %>
                                                 </p>
-                                                <a href="{% url 'profile' user.id %}" class=" text-cyan-500">
+                                                <a href="/profile/<%= userParticpanties.user.dataValues.id %>" class=" text-cyan-500">
                                                     <%= userParticpanties.user.dataValues.email %>
                                                 </a>
                                             </div>

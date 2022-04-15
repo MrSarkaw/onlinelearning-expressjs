@@ -24,7 +24,7 @@
                     <div>
                         <% if(isAuthenticated){ %>
                             <% if(user.id == element.userId){ %>
-                                <a href="{% url 'deleteMessage' message.id %}"> <i class="fas fa-times"></i> </a>
+                                <a href="/message/delete/<%= element.id %>"> <i class="fas fa-times"></i> </a>
                            <% } %>
                          <% } %>
                     </div>

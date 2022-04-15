@@ -29,18 +29,19 @@ exports.register = async (req, res, next)=>{
             errorMessage:errors.array(),
             oldValue: req.body
         });
+    }else{
+        let user = await User.create({
+             name:name,
+             email:email,
+             password:password
+         });
+     
+         req.session.isLogged = true;
+         req.session.user = user;
+         
+        return res.redirect('/')
     }
 
-   let user = await User.create({
-        name:name,
-        email:email,
-        password:password
-    });
-
-    req.session.isLogged = true;
-    req.session.user = user;
-    
-    res.redirect('/')
 }
 
 
@@ -66,10 +67,10 @@ exports.login = async (req, res, next)=>{
     if(check){
         req.session.isLogged = true;
         req.session.user = user;
+        return res.redirect('/')
     }else{
-        return res.redirect('/login')
+       res.redirect('/login')
     }
-    return res.redirect('/')
 }
 
 exports.logout = async (req, res, next)=>{

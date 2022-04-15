@@ -97,6 +97,7 @@ exports.update = async (req, res, next)=>{
     await user.save();
 
     req.session.user['image'] = filename;
+    req.session.user['name'] = user.name;
 
     return res.redirect('/edit')
 
