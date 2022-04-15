@@ -9,8 +9,7 @@
 </div>
 
 
-<form method="post" action="/edit">
-    <input type="hidden" value="<%= csrf %>" name="_csrf">
+<form method="post" action="/edit?_csrf=<%=csrf%>" enctype="multipart/form-data">
     <div class="h-min-screen flex items-center justify-center">
         <div class="w-4/12 rounded-lg text-white mainColor overflow-hidden">
             <div class="p-4 text-center uppercase boxColor font-bold text-white">
@@ -27,6 +26,13 @@
                 <div class="mt-5">
                     <p>email</p>
                     <input type="email" value="<%=  userProfile['email'] %>" name="email" placeholder="email" class='bg-transparent p-2 w-full  focus:outline-none rounded border border-gray-100/20'>
+                </div>
+                
+           
+               
+                <div class="mt-5">
+                    <p>Image</p>
+                    <input type="file" name="image"  class='bg-transparent p-2 w-full  focus:outline-none rounded border border-gray-100/20'>
                 </div>
                 
            

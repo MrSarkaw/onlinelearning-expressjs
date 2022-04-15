@@ -4,7 +4,7 @@ const {Op} = require('sequelize')
 
 module.exports = [
     body('name').notEmpty().withMessage('name is required'),
-    body('email').notEmpty().withMessage('name is required').custom(async (value, {req})=>{
+    body('email').notEmpty().withMessage('email is required').custom(async (value, {req})=>{
        await User.findOne({where:{
             email:{
                 [Op.eq]:value

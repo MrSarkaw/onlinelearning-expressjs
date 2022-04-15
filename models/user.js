@@ -21,6 +21,10 @@ const users = sequelize.define('users',{
         type:Sequelize.STRING,
         allowNull:false,
     },
+    image:{
+        type:Sequelize.STRING,
+        allowNull:true,
+    },
     bio:{
         type:Sequelize.STRING,
         allowNull:true,
